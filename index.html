@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Wedding of Yazid & Tifa</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>"
+    />
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts for elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons for beautiful icons (Corrected Script) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS for theme and animations -->
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f5f3;
+        color: #333;
+      }
+      h1,
+      h2,
+      h3,
+      .font-display {
+        font-family: "Playfair Display", serif;
+      }
+      .cover-bg {
+        background-image: url("https://placehold.co/1200x800/a3b18a/ffffff?text=Y+%26+T");
+        background-size: cover;
+        background-position: center;
+      }
+      .fade-in {
+        animation: fadeIn 1.5s ease-in-out;
+      }
+      .slide-up {
+        animation: slideUp 1s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .main-content {
+        display: none; /* Initially hidden */
+      }
+      .bg-pattern {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      /* Loading spinner animation */
+      .loader {
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #d4af37;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-[#F5F5F3]">
+    <!-- ====================================================== -->
+    <!-- 1. Welcome Page (Cover)                                -->
+    <!-- ====================================================== -->
+    <div
+      id="welcome-page"
+      class="cover-bg fixed inset-0 z-50 flex items-center justify-center text-center text-white"
+    >
+      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="relative z-10 p-8 fade-in">
+        <h2 class="text-xl md:text-2xl font-light tracking-wider">
+          The Wedding Of
+        </h2>
+        <h1 class="font-display text-5xl md:text-7xl my-4">Yazid & Tifa</h1>
+        <div
+          id="guest-name-container"
+          class="mt-12 opacity-0 transition-opacity duration-1000"
+        >
+          <p class="text-sm">Kepada Yth.</p>
+          <p class="text-lg font-semibold" id="guest-name">
+            Bapak/Ibu/Saudara/i
+          </p>
+        </div>
+        <button
+          id="open-invitation-btn"
+          class="mt-8 bg-[#d4af37] text-gray-800 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-[#c8a02a] transition-all duration-300 transform hover:scale-105"
+        >
+          Buka Undangan
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content - Revealed after opening invitation -->
+    <main id="main-content" class="main-content">
+      <!-- Audio Player - Optional -->
+      <div id="audio-container" class="fixed bottom-4 right-4 z-40">
+        <audio
+          id="background-music"
+          loop
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        ></audio>
+        <button
+          id="play-pause-btn"
+          class="w-12 h-12 bg-[#d4af37]/80 backdrop-blur-sm text-gray-800 rounded-full flex items-center justify-center shadow-lg"
+        >
+          <i data-lucide="play"></i>
+        </button>
+      </div>
+
+      <!-- ====================================================== -->
+      <!-- 2. Home Section                                        -->
+      <!-- ====================================================== -->
+      <section
+        id="home"
+        class="h-screen bg-pattern flex flex-col items-center justify-center text-center p-8 text-[#4a4a4a]"
+      >
+        <div class="slide-up" style="animation-delay: 200ms">
+          <h2 class="text-2xl md:text-3xl font-light">
+            بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+          </h2>
+          <p class="mt-4 max-w-2xl mx-auto text-sm md:text-base">
+            "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan
+            untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung
+            dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa
+            kasih dan sayang."
+          </p>
+          <p class="font-semibold mt-2">(QS. Ar-Rum: 21)</p>
+        </div>
+
+        <div class="my-10 slide-up" style="animation-delay: 400ms">
+          <h1 class="font-display text-5xl md:text-7xl text-[#d4af37]">
+            M. Yazid Al-Busthomi <br />&<br />
+            Sarirotul Latifah
+          </h1>
+          <p class="text-lg mt-2">
+            Kami mengundang Anda untuk merayakan hari bahagia kami.
+          </p>
+        </div>
+
+        <div
+          id="countdown-wrapper"
+          class="slide-up text-center"
+          style="animation-delay: 600ms"
+        >
+          <h3
+            id="countdown-title"
+            class="text-lg font-semibold mb-2 text-[#4a4a4a] leading-tight"
+          ></h3>
+          <div
+            id="countdown-timer"
+            class="flex justify-center space-x-4 text-center"
+          >
+            <!-- Countdown content will be generated by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- Bride & Groom Section                                  -->
+      <!-- ====================================================== -->
+      <section class="py-20 bg-white bg-pattern">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="font-display text-4xl text-[#d4af37] mb-12">
+            Sang Mempelai
+          </h2>
+          <div
+            class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20"
+          >
+            <!-- Groom -->
+            <div class="text-center">
+              <img
+                src="https://placehold.co/300x300/a3b18a/ffffff?text=Yazid"
+                alt="M. Yazid Al Busthomi"
+                class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg border-4 border-white"
+              />
+              <h3 class="font-display text-3xl mt-4 text-[#d4af37]">
+                M. Yazid Al Busthomi
+              </h3>
+              <p class="mt-2 text-gray-600">
+                Putra dari Bapak [...] & Ibu [...]
+              </p>
+            </div>
+            <div class="font-display text-5xl text-[#d4af37]">&</div>
+            <!-- Bride -->
+            <div class="text-center">
+              <img
+                src="https://placehold.co/300x300/d4af37/ffffff?text=Tifa"
+                alt="Sarirotul Latifah"
+                class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg border-4 border-white"
+              />
+              <h3 class="font-display text-3xl mt-4 text-[#d4af37]">
+                Sarirotul Latifah
+              </h3>
+              <p class="mt-2 text-gray-600">
+                Putri dari Bapak [...] & Ibu [...]
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- 3. Rangkaian Acara (Event Details)                     -->
+      <!-- ====================================================== -->
+      <section id="acara" class="py-20 bg-pattern">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="font-display text-4xl text-[#d4af37] mb-12">
+            Rangkaian Acara
+          </h2>
+          <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Akad Nikah -->
+            <div
+              class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[#d4af37]"
+            >
+              <h3 class="font-display text-3xl mb-4">Akad Nikah</h3>
+              <i
+                data-lucide="gem"
+                class="mx-auto text-[#d4af37] w-12 h-12 mb-4"
+              ></i>
+              <p class="font-semibold text-lg">Jum'at, 12 Desember 2025</p>
+              <p class="text-gray-600">Pukul 09:00 WIB - Selesai</p>
+              <p class="mt-4 text-sm text-gray-500">
+                Lokasi: [Alamat Lengkap Akad Nikah]
+              </p>
+            </div>
+            <!-- Resepsi Wanita -->
+            <div
+              class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[#d4af37]"
+            >
+              <h3 class="font-display text-3xl mb-4">Resepsi Wanita</h3>
+              <i
+                data-lucide="heart"
+                class="mx-auto text-[#d4af37] w-12 h-12 mb-4"
+              ></i>
+              <p class="font-semibold text-lg">Sabtu, 13 Desember 2025</p>
+              <p class="text-gray-600">Pukul 11:00 WIB - Selesai</p>
+              <p class="mt-4 text-sm text-gray-500">
+                Lokasi: Desa Jeruk, Kecamatan Kraton, Kabupaten Pasuruan
+              </p>
+              <a
+                href="https://maps.app.goo.gl/CrSBr1Pj2A9dj5Uu6"
+                target="_blank"
+                class="inline-block mt-4 bg-gray-800 text-white px-6 py-2 rounded-full text-sm hover:bg-gray-700 transition"
+                >Lihat Peta</a
+              >
+            </div>
+            <!-- Resepsi Pria -->
+            <div
+              class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[#d4af37]"
+            >
+              <h3 class="font-display text-3xl mb-4">Resepsi Pria</h3>
+              <i
+                data-lucide="party-popper"
+                class="mx-auto text-[#d4af37] w-12 h-12 mb-4"
+              ></i>
+              <p class="font-semibold text-lg">Sabtu, 20 Desember 2025</p>
+              <p class="text-gray-600">Pukul 11:00 WIB - Selesai</p>
+              <p class="mt-4 text-sm text-gray-500">
+                Lokasi: Desa Plinggisan, Kecamatan Kraton, Kabupaten Pasuruan
+              </p>
+              <a
+                href="https://maps.app.goo.gl/twtnhLoLu6rGFWhr8"
+                target="_blank"
+                class="inline-block mt-4 bg-gray-800 text-white px-6 py-2 rounded-full text-sm hover:bg-gray-700 transition"
+                >Lihat Peta</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- 4. Perjalanan Kami (Our Story)                         -->
+      <!-- ====================================================== -->
+      <section id="story" class="py-20 bg-white bg-pattern">
+        <div class="container mx-auto px-6">
+          <h2 class="font-display text-4xl text-[#d4af37] text-center mb-12">
+            Perjalanan Kami
+          </h2>
+          <div class="relative max-w-2xl mx-auto">
+            <!-- The vertical line -->
+            <div
+              class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-gray-200"
+            ></div>
+            <!-- Story Item 1 -->
+            <div class="relative mb-8 flex justify-between items-center w-full">
+              <div class="order-1 w-5/12"></div>
+              <div
+                class="z-20 flex items-center order-1 bg-[#d4af37] shadow-xl w-8 h-8 rounded-full"
+              >
+                <i
+                  data-lucide="sparkles"
+                  class="w-5 h-5 text-white mx-auto"
+                ></i>
+              </div>
+              <div
+                class="order-1 bg-gray-100 rounded-lg shadow-xl w-5/12 px-6 py-4"
+              >
+                <h3 class="font-semibold text-lg">Awal Bertemu</h3>
+                <p class="text-sm text-gray-600">
+                  Cerita singkat tentang bagaimana Anda pertama kali bertemu.
+                </p>
+              </div>
+            </div>
+            <!-- Story Item 2 -->
+            <div
+              class="relative mb-8 flex justify-between flex-row-reverse items-center w-full"
+            >
+              <div class="order-1 w-5/12"></div>
+              <div
+                class="z-20 flex items-center order-1 bg-[#d4af37] shadow-xl w-8 h-8 rounded-full"
+              >
+                <i
+                  data-lucide="book-open-check"
+                  class="w-5 h-5 text-white mx-auto"
+                ></i>
+              </div>
+              <div
+                class="order-1 bg-gray-100 rounded-lg shadow-xl w-5/12 px-6 py-4"
+              >
+                <h3 class="font-semibold text-lg">Lamaran</h3>
+                <p class="text-sm text-gray-600">
+                  Momen saat hubungan menjadi lebih serius dan lamaran terjadi.
+                </p>
+              </div>
+            </div>
+            <!-- Story Item 3 -->
+            <div class="relative mb-8 flex justify-between items-center w-full">
+              <div class="order-1 w-5/12"></div>
+              <div
+                class="z-20 flex items-center order-1 bg-[#d4af37] shadow-xl w-8 h-8 rounded-full"
+              >
+                <i
+                  data-lucide="heart-handshake"
+                  class="w-5 h-5 text-white mx-auto"
+                ></i>
+              </div>
+              <div
+                class="order-1 bg-gray-100 rounded-lg shadow-xl w-5/12 px-6 py-4"
+              >
+                <h3 class="font-semibold text-lg">Menuju Halal</h3>
+                <p class="text-sm text-gray-600">
+                  Persiapan dan perjalanan menuju hari pernikahan yang
+                  dinantikan.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- 5. RSVP Section                                        -->
+      <!-- ====================================================== -->
+      <section id="rsvp" class="py-20 bg-pattern">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="font-display text-4xl text-[#d4af37] mb-4">
+            Kirim Ucapan & Doa
+          </h2>
+          <p class="max-w-xl mx-auto mb-8 text-gray-600">
+            Sampaikan harapan dan doa terbaik Anda untuk kami di hari yang
+            berbahagia ini.
+          </p>
+          <form
+            id="rsvp-form"
+            class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-xl text-left"
+          >
+            <div class="mb-4">
+              <label for="nama" class="block text-gray-700 font-semibold mb-2"
+                >Nama Anda</label
+              >
+              <input
+                type="text"
+                id="nama"
+                name="Nama"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 font-semibold mb-2"
+                >Konfirmasi Kehadiran</label
+              >
+              <div class="flex items-center space-x-4">
+                <label class="flex items-center">
+                  <input
+                    type="radio"
+                    name="Kehadiran"
+                    value="Hadir"
+                    class="mr-2 accent-[#d4af37]"
+                    checked
+                  />
+                  Hadir
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="radio"
+                    name="Kehadiran"
+                    value="Tidak Hadir"
+                    class="mr-2 accent-[#d4af37]"
+                  />
+                  Tidak Hadir
+                </label>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="jumlah" class="block text-gray-700 font-semibold mb-2"
+                >Jumlah Tamu (termasuk Anda)</label
+              >
+              <input
+                type="number"
+                id="jumlah"
+                name="Jumlah"
+                min="0"
+                value="1"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <!-- Gemini AI Feature -->
+              <div class="flex justify-between items-center mb-2">
+                <label for="ucapan" class="block text-gray-700 font-semibold"
+                  >Ucapan & Doa</label
+                >
+                <button
+                  type="button"
+                  id="generate-wish-btn"
+                  class="text-sm bg-[#d4af37] text-gray-800 px-3 py-1 rounded-full hover:bg-[#c8a02a] transition-all flex items-center gap-2 disabled:bg-gray-400"
+                >
+                  <span id="generate-wish-icon-container">
+                    <span id="generate-wish-icon">✨</span>
+                  </span>
+                  <span id="generate-wish-text">Buatkan Ucapan</span>
+                </button>
+              </div>
+              <textarea
+                id="ucapan"
+                name="Ucapan"
+                rows="4"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
+                placeholder="Tulis ucapan dan doa Anda untuk kami..."
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              id="submit-rsvp"
+              class="w-full bg-gray-800 text-white font-bold py-3 px-4 rounded-lg hover:bg-gray-700 transition-all duration-300"
+            >
+              Kirim
+            </button>
+            <p id="rsvp-status" class="text-center mt-4 text-sm"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="text-center py-10 bg-white">
+        <p class="text-gray-600">Terima kasih atas doa restu Anda.</p>
+        <p class="font-display text-3xl text-[#d4af37] my-2">Yazid & Tifa</p>
+        <p class="text-xs text-gray-400 mt-4">Dibuat dengan ❤️</p>
+      </footer>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- Welcome Page Logic ---
+        const welcomePage = document.getElementById("welcome-page");
+        const openBtn = document.getElementById("open-invitation-btn");
+        const mainContent = document.getElementById("main-content");
+        const guestNameContainer = document.getElementById(
+          "guest-name-container"
+        );
+        const guestNameEl = document.getElementById("guest-name");
+        const rsvpNameInput = document.getElementById("nama");
+
+        // --- Audio Logic ---
+        const audio = document.getElementById("background-music");
+        const playPauseBtn = document.getElementById("play-pause-btn");
+        const playIcon = '<i data-lucide="play"></i>';
+        const pauseIcon = '<i data-lucide="pause"></i>';
+        let isPlaying = false;
+
+        // Personalize guest name from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const guest = urlParams.get("to");
+
+        if (guest) {
+          const formattedGuestName = guest.replace(/_/g, " ");
+          guestNameEl.textContent = formattedGuestName;
+          rsvpNameInput.value = formattedGuestName;
+          guestNameContainer.style.opacity = "1";
+        } else {
+          guestNameContainer.style.opacity = "1";
+        }
+
+        openBtn.addEventListener("click", () => {
+          welcomePage.style.transition = "opacity 1s ease-out";
+          welcomePage.style.opacity = "0";
+
+          setTimeout(() => {
+            welcomePage.style.display = "none";
+            mainContent.style.display = "block";
+            document.body.style.overflow = "auto";
+
+            const animatedSections = document.querySelectorAll(".slide-up");
+            animatedSections.forEach((section) => {
+              section.style.opacity = "1";
+            });
+
+            audio
+              .play()
+              .then(() => {
+                isPlaying = true;
+                playPauseBtn.innerHTML = pauseIcon;
+                lucide.createIcons();
+              })
+              .catch((error) => {
+                console.log(
+                  "Autoplay was prevented. User must interact first."
+                );
+                playPauseBtn.innerHTML = playIcon;
+                lucide.createIcons();
+              });
+          }, 1000);
+        });
+
+        playPauseBtn.addEventListener("click", () => {
+          if (isPlaying) {
+            audio.pause();
+            playPauseBtn.innerHTML = playIcon;
+          } else {
+            audio.play();
+            playPauseBtn.innerHTML = pauseIcon;
+          }
+          isPlaying = !isPlaying;
+          lucide.createIcons();
+        });
+
+        // --- UPDATED Countdown Timer Logic ---
+        const countdownTitleEl = document.getElementById("countdown-title");
+        const countdownTimerEl = document.getElementById("countdown-timer");
+
+        const eventDates = [
+          {
+            name: "Akad Nikah",
+            date: new Date("Dec 12, 2025 09:00:00").getTime(),
+          },
+          {
+            name: "Resepsi Wanita",
+            date: new Date("Dec 13, 2025 11:00:00").getTime(),
+          },
+          {
+            name: "Resepsi Pria",
+            date: new Date("Dec 20, 2025 11:00:00").getTime(),
+          },
+        ];
+
+        const countdownFunction = setInterval(function () {
+          const now = new Date().getTime();
+          let currentEvent = null;
+
+          for (const event of eventDates) {
+            if (now < event.date) {
+              currentEvent = event;
+              break;
+            }
+          }
+
+          if (currentEvent) {
+            countdownTitleEl.innerHTML = `Menuju Acara<br><span class="font-display text-[#d4af37] text-2xl">${currentEvent.name}</span>`;
+            const distance = currentEvent.date - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutes = Math.floor(
+              (distance % (1000 * 60 * 60)) / (1000 * 60)
+            );
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            countdownTimerEl.innerHTML = `
+                        <div><span class="text-4xl font-bold">${days
+                          .toString()
+                          .padStart(
+                            2,
+                            "0"
+                          )}</span><br><span class="text-xs">Hari</span></div>
+                        <div><span class="text-4xl font-bold">${hours
+                          .toString()
+                          .padStart(
+                            2,
+                            "0"
+                          )}</span><br><span class="text-xs">Jam</span></div>
+                        <div><span class="text-4xl font-bold">${minutes
+                          .toString()
+                          .padStart(
+                            2,
+                            "0"
+                          )}</span><br><span class="text-xs">Menit</span></div>
+                        <div><span class="text-4xl font-bold">${seconds
+                          .toString()
+                          .padStart(
+                            2,
+                            "0"
+                          )}</span><br><span class="text-xs">Detik</span></div>
+                    `;
+          } else {
+            countdownTitleEl.textContent = "";
+            countdownTimerEl.innerHTML =
+              "<p class='text-xl font-bold text-center'>Terima kasih atas kehadiran dan doa restu Anda.</p>";
+            clearInterval(countdownFunction);
+          }
+        }, 1000);
+
+        // --- Gemini API Wish Generator ---
+        const generateWishBtn = document.getElementById("generate-wish-btn");
+        const ucapanTextarea = document.getElementById("ucapan");
+        const generateWishIconContainer = document.getElementById(
+          "generate-wish-icon-container"
+        );
+        const generateWishText = document.getElementById("generate-wish-text");
+        const defaultIcon = `<span id="generate-wish-icon">✨</span>`;
+        const loadingIcon = `<div class="loader"></div>`;
+
+        generateWishBtn.addEventListener("click", async () => {
+          const guestName = rsvpNameInput.value.trim();
+          if (!guestName) {
+            alert("Mohon isi nama Anda terlebih dahulu.");
+            return;
+          }
+
+          generateWishBtn.disabled = true;
+          generateWishIconContainer.innerHTML = loadingIcon;
+          generateWishText.textContent = "Membuat...";
+          ucapanTextarea.value =
+            "AI sedang merangkai kata-kata terbaik untuk Anda...";
+
+          const prompt = `Tuliskan sebuah ucapan pernikahan yang indah dan tulus untuk pasangan bernama Yazid dan Tifa dalam Bahasa Indonesia. Ucapan ini dari tamu mereka yang bernama ${guestName}. Buatlah ucapan yang hangat, menyentuh, dan penuh doa baik untuk masa depan mereka. Buat dalam 1 paragraf singkat.`;
+
+          const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+          const payload = { contents: chatHistory };
+          const apiKey = "";
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+              // Handle specific errors like 403 Forbidden
+              if (response.status === 403) {
+                throw new Error(
+                  "API Key tidak valid atau tidak ada. Fitur ini tidak dapat digunakan di lingkungan lokal."
+                );
+              }
+              throw new Error(
+                `API Error: ${response.status} ${response.statusText}`
+              );
+            }
+
+            const result = await response.json();
+
+            if (
+              result.candidates &&
+              result.candidates.length > 0 &&
+              result.candidates[0].content &&
+              result.candidates[0].content.parts &&
+              result.candidates[0].content.parts.length > 0
+            ) {
+              const text = result.candidates[0].content.parts[0].text;
+              ucapanTextarea.value = text;
+            } else {
+              ucapanTextarea.value =
+                "Maaf, kami tidak bisa membuat ucapan saat ini. Silakan coba lagi atau tulis manual.";
+            }
+          } catch (error) {
+            console.error("Gemini API call failed:", error);
+            ucapanTextarea.value = `Terjadi kesalahan: ${error.message}\n\nSilakan tulis ucapan secara manual.`;
+          } finally {
+            generateWishBtn.disabled = false;
+            generateWishIconContainer.innerHTML = defaultIcon;
+            generateWishText.textContent = "Buatkan Ucapan";
+          }
+        });
+
+        // --- RSVP Form Submission to Google Sheets ---
+        const rsvpForm = document.getElementById("rsvp-form");
+        const rsvpStatus = document.getElementById("rsvp-status");
+        const submitBtn = document.getElementById("submit-rsvp");
+
+        const scriptURL =
+          "https://script.google.com/macros/s/AKfycbypNkb9a3Clkv_MU8aQz9cSAQFNlu3iPjqRw2oYQ7wZDyK2ZVAHxbfcz68poj15rPE/exec";
+
+        rsvpForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Mengirim...";
+          rsvpStatus.textContent = "";
+
+          fetch(scriptURL, { method: "POST", body: new FormData(rsvpForm) })
+            .then((response) => {
+              console.log("Success!", response);
+              rsvpStatus.textContent =
+                "Terima kasih! Konfirmasi Anda telah terkirim.";
+              rsvpStatus.style.color = "green";
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Kirim";
+              rsvpForm.reset();
+              if (guest) {
+                rsvpNameInput.value = guest.replace(/_/g, " ");
+              }
+            })
+            .catch((error) => {
+              console.error("Error!", error.message);
+              rsvpStatus.textContent =
+                "Maaf, terjadi kesalahan. Silakan coba lagi.";
+              rsvpStatus.style.color = "red";
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Kirim";
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
