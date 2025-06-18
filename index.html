@@ -658,7 +658,17 @@
         const defaultIcon = `<span id="generate-wish-icon">✨</span>`;
         const loadingIcon = `<div class="loader"></div>`;
 
+        // !!! PENTING: Ganti dengan Kunci API Gemini Anda untuk mengaktifkan fitur ini.
+        const apiKey = "MASUKKAN_API_KEY_ANDA_DI_SINI";
+
         generateWishBtn.addEventListener("click", async () => {
+          // Periksa apakah Kunci API sudah dimasukkan
+          if (apiKey === "MASUKKAN_API_KEY_ANDA_DI_SINI" || !apiKey) {
+            ucapanTextarea.value =
+              "Fitur AI belum diaktifkan oleh pemilik undangan. Harap masukkan ucapan secara manual.";
+            return;
+          }
+
           const guestName = rsvpNameInput.value.trim();
           if (!guestName) {
             alert("Mohon isi nama Anda terlebih dahulu.");
@@ -675,7 +685,6 @@
 
           const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
           const payload = { contents: chatHistory };
-          const apiKey = "";
           const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
           try {
@@ -686,12 +695,6 @@
             });
 
             if (!response.ok) {
-              // Handle specific errors like 403 Forbidden
-              if (response.status === 403) {
-                throw new Error(
-                  "API Key tidak valid atau tidak ada. Fitur ini tidak dapat digunakan di lingkungan lokal."
-                );
-              }
               throw new Error(
                 `API Error: ${response.status} ${response.statusText}`
               );
@@ -714,7 +717,7 @@
             }
           } catch (error) {
             console.error("Gemini API call failed:", error);
-            ucapanTextarea.value = `Terjadi kesalahan: ${error.message}\n\nSilakan tulis ucapan secara manual.`;
+            ucapanTextarea.value = `Terjadi kesalahan saat memanggil AI. Silakan tulis ucapan secara manual.`;
           } finally {
             generateWishBtn.disabled = false;
             generateWishIconContainer.innerHTML = defaultIcon;
