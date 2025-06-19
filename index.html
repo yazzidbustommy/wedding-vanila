@@ -29,6 +29,8 @@
         font-family: "Poppins", sans-serif;
         background-color: #f5f5f3;
         color: #333;
+        /* Add padding to the bottom to prevent navbar from overlapping content */
+        padding-bottom: 80px;
       }
       h1,
       h2,
@@ -89,6 +91,10 @@
           transform: rotate(360deg);
         }
       }
+      /* Active state for navbar link */
+      .nav-link.active {
+        color: #d4af37;
+      }
     </style>
   </head>
   <body class="bg-[#F5F5F3]">
@@ -126,7 +132,7 @@
     <!-- Main Content - Revealed after opening invitation -->
     <main id="main-content" class="main-content">
       <!-- Audio Player - Optional -->
-      <div id="audio-container" class="fixed bottom-4 right-4 z-40">
+      <div id="audio-container" class="fixed bottom-24 right-4 z-40">
         <audio
           id="background-music"
           loop
@@ -191,7 +197,7 @@
       <!-- ====================================================== -->
       <!-- Bride & Groom Section                                  -->
       <!-- ====================================================== -->
-      <section class="py-20 bg-white bg-pattern">
+      <section id="mempelai" class="py-20 bg-white bg-pattern">
         <div class="container mx-auto px-6 text-center">
           <h2 class="font-display text-4xl text-[#d4af37] mb-12">
             Sang Mempelai
@@ -329,7 +335,7 @@
               <div
                 class="order-1 bg-gray-100 rounded-lg shadow-xl w-5/12 px-6 py-4"
               >
-                <h3 class="font-semibold text-lg">Awal Bertemu (2024)</h3>
+                <h3 class="font-semibold text-lg">Awal Bertemu</h3>
                 <p class="text-sm text-gray-600">
                   Cerita singkat tentang bagaimana Anda pertama kali bertemu.
                 </p>
@@ -351,7 +357,7 @@
               <div
                 class="order-1 bg-gray-100 rounded-lg shadow-xl w-5/12 px-6 py-4"
               >
-                <h3 class="font-semibold text-lg">Lamaran (April 2024)</h3>
+                <h3 class="font-semibold text-lg">Lamaran</h3>
                 <p class="text-sm text-gray-600">
                   Momen saat hubungan menjadi lebih serius dan lamaran terjadi.
                 </p>
@@ -371,9 +377,7 @@
               <div
                 class="order-1 bg-gray-100 rounded-lg shadow-xl w-5/12 px-6 py-4"
               >
-                <h3 class="font-semibold text-lg">
-                  Menuju Halal (Desember 2025)
-                </h3>
+                <h3 class="font-semibold text-lg">Menuju Halal</h3>
                 <p class="text-sm text-gray-600">
                   Persiapan dan perjalanan menuju hari pernikahan yang
                   dinantikan.
@@ -438,7 +442,7 @@
                 </label>
               </div>
             </div>
-            <div class="mb-4">
+            <div id="jumlah-wrapper" class="mb-4">
               <label for="jumlah" class="block text-gray-700 font-semibold mb-2"
                 >Jumlah Tamu (termasuk Anda)</label
               >
@@ -495,6 +499,43 @@
         <p class="font-display text-3xl text-[#d4af37] my-2">Yazid & Tifa</p>
         <p class="text-xs text-gray-400 mt-4">Dibuat dengan ❤️</p>
       </footer>
+
+      <!-- Floating Navbar -->
+      <nav
+        id="bottom-nav"
+        class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40 rounded-t-2xl"
+      >
+        <div class="flex justify-around max-w-lg mx-auto py-2">
+          <a
+            href="#home"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+          >
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">Rumah</span>
+          </a>
+          <a
+            href="#acara"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+          >
+            <i data-lucide="calendar-heart" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">Acara</span>
+          </a>
+          <a
+            href="#story"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+          >
+            <i data-lucide="book-heart" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">Cerita</span>
+          </a>
+          <a
+            href="#rsvp"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+          >
+            <i data-lucide="send" class="w-6 h-6"></i>
+            <span class="text-xs mt-1">Ucapan</span>
+          </a>
+        </div>
+      </nav>
     </main>
 
     <script>
@@ -650,6 +691,27 @@
           }
         }, 1000);
 
+        // --- Navbar Active Link on Scroll ---
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+          let current = "";
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 60) {
+              current = section.getAttribute("id");
+            }
+          });
+
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href").includes(current)) {
+              link.classList.add("active");
+            }
+          });
+        });
+
         // --- Gemini API Wish Generator ---
         const generateWishBtn = document.getElementById("generate-wish-btn");
         const ucapanTextarea = document.getElementById("ucapan");
@@ -661,10 +723,9 @@
         const loadingIcon = `<div class="loader"></div>`;
 
         // !!! PENTING: Ganti dengan Kunci API Gemini Anda untuk mengaktifkan fitur ini.
-        const apiKey = "AIzaSyBGbghI21wlre6cKua-5gIw-cuNFlmI1Wk";
+        const apiKey = "AIzaSyDU3Vz_yXeG7Nsr2thCTo4G-XN1OJ0EE1E";
 
         generateWishBtn.addEventListener("click", async () => {
-          // Periksa apakah Kunci API sudah dimasukkan
           if (apiKey === "MASUKKAN_API_KEY_ANDA_DI_SINI" || !apiKey) {
             ucapanTextarea.value =
               "Fitur AI belum diaktifkan oleh pemilik undangan. Harap masukkan ucapan secara manual.";
@@ -727,10 +788,28 @@
           }
         });
 
-        // --- RSVP Form Submission to Google Sheets ---
+        // --- RSVP Form Submission and Logic ---
         const rsvpForm = document.getElementById("rsvp-form");
         const rsvpStatus = document.getElementById("rsvp-status");
         const submitBtn = document.getElementById("submit-rsvp");
+        const kehadiranRadios = document.querySelectorAll(
+          'input[name="Kehadiran"]'
+        );
+        const jumlahWrapper = document.getElementById("jumlah-wrapper");
+        const jumlahInput = document.getElementById("jumlah");
+
+        // Logic to hide/show guest count based on attendance
+        kehadiranRadios.forEach((radio) => {
+          radio.addEventListener("change", function () {
+            if (this.value === "Tidak Hadir") {
+              jumlahWrapper.style.display = "none";
+              jumlahInput.value = 0;
+            } else {
+              jumlahWrapper.style.display = "block";
+              jumlahInput.value = 1;
+            }
+          });
+        });
 
         const scriptURL =
           "https://script.google.com/macros/s/AKfycbypNkb9a3Clkv_MU8aQz9cSAQFNlu3iPjqRw2oYQ7wZDyK2ZVAHxbfcz68poj15rPE/exec";
@@ -753,6 +832,9 @@
               if (guest) {
                 rsvpNameInput.value = guest.replace(/_/g, " ");
               }
+              // Reset the guest count display
+              jumlahWrapper.style.display = "block";
+              jumlahInput.value = 1;
             })
             .catch((error) => {
               console.error("Error!", error.message);
