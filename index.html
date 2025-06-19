@@ -89,6 +89,12 @@
     </style>
   </head>
   <body class="bg-[#F5F5F3]">
+    <audio
+      id="background-music"
+      loop
+      src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    ></audio>
+
     <!-- ====================================================== -->
     <!-- 1. Welcome Page (Cover)                                -->
     <!-- ====================================================== -->
@@ -126,21 +132,6 @@
 
     <!-- Main Content - Revealed after opening invitation -->
     <main id="main-content" class="main-content">
-      <!-- Audio Player - Optional -->
-      <div id="audio-container" class="fixed bottom-24 right-4 z-40">
-        <audio
-          id="background-music"
-          loop
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        ></audio>
-        <button
-          id="play-pause-btn"
-          class="w-12 h-12 bg-[#d4af37]/80 backdrop-blur-sm text-gray-800 rounded-full flex items-center justify-center shadow-lg"
-        >
-          <i data-lucide="play"></i>
-        </button>
-      </div>
-
       <!-- ====================================================== -->
       <!-- 2. Home Section                                        -->
       <!-- ====================================================== -->
@@ -528,35 +519,49 @@
         id="bottom-nav"
         class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40 rounded-t-2xl"
       >
-        <div class="flex justify-around max-w-lg mx-auto py-2">
+        <div class="flex justify-around max-w-lg mx-auto py-3 items-center">
           <a
             href="#home"
-            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+            title="Rumah"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2"
           >
             <i data-lucide="home" class="w-6 h-6"></i>
-            <span class="text-xs mt-1">Rumah</span>
+          </a>
+          <a
+            href="#mempelai"
+            title="Mempelai"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2"
+          >
+            <i data-lucide="users" class="w-6 h-6"></i>
           </a>
           <a
             href="#acara"
-            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+            title="Acara"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2"
           >
             <i data-lucide="calendar-heart" class="w-6 h-6"></i>
-            <span class="text-xs mt-1">Acara</span>
           </a>
           <a
             href="#story"
-            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+            title="Cerita"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2"
           >
             <i data-lucide="book-heart" class="w-6 h-6"></i>
-            <span class="text-xs mt-1">Cerita</span>
           </a>
           <a
             href="#rsvp"
-            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2 text-center"
+            title="Ucapan"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2"
           >
             <i data-lucide="send" class="w-6 h-6"></i>
-            <span class="text-xs mt-1">Ucapan</span>
           </a>
+          <button
+            id="nav-play-pause-btn"
+            title="Musik"
+            class="nav-link flex flex-col items-center text-gray-600 hover:text-[#d4af37] transition-colors p-2"
+          >
+            <i data-lucide="play" class="w-6 h-6"></i>
+          </button>
         </div>
       </nav>
     </main>
@@ -584,9 +589,9 @@
 
         // --- Audio Logic ---
         const audio = document.getElementById("background-music");
-        const playPauseBtn = document.getElementById("play-pause-btn");
-        const playIcon = '<i data-lucide="play"></i>';
-        const pauseIcon = '<i data-lucide="pause"></i>';
+        const playPauseBtn = document.getElementById("nav-play-pause-btn");
+        const playIcon = '<i data-lucide="play" class="w-6 h-6"></i>';
+        const pauseIcon = '<i data-lucide="pause" class="w-6 h-6"></i>';
         let isPlaying = false;
 
         // Personalize guest name from URL
@@ -735,7 +740,10 @@
 
           navLinks.forEach((link) => {
             link.classList.remove("active");
-            if (link.getAttribute("href").includes(current)) {
+            if (
+              link.getAttribute("href") &&
+              link.getAttribute("href").includes(current)
+            ) {
               link.classList.add("active");
             }
           });
