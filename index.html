@@ -20,8 +20,12 @@
       rel="stylesheet"
     />
 
-    <!-- Lucide Icons for beautiful icons (Corrected Script) -->
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- AOS (Animate On Scroll) Library for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- Custom CSS for theme and animations -->
     <style>
@@ -31,6 +35,7 @@
         color: #333;
         /* Add padding to the bottom to prevent navbar from overlapping content */
         padding-bottom: 80px;
+        overflow-x: hidden; /* Prevent horizontal scroll caused by animations */
       }
       h1,
       h2,
@@ -39,32 +44,18 @@
         font-family: "Playfair Display", serif;
       }
       .cover-bg {
-        background-image: url("https://placehold.co/1200x800/a3b18a/ffffff?text=Y+%26+T");
+        background-image: url("https://thehellobrides.com/wp-content/uploads/2023/01/Rekomendasi-Vendor-Wedding-Venue.jpg");
         background-size: cover;
         background-position: center;
       }
       .fade-in {
         animation: fadeIn 1.5s ease-in-out;
       }
-      .slide-up {
-        animation: slideUp 1s ease-out forwards;
-        opacity: 0;
-      }
       @keyframes fadeIn {
         from {
           opacity: 0;
         }
         to {
-          opacity: 1;
-        }
-      }
-      @keyframes slideUp {
-        from {
-          transform: translateY(50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
           opacity: 1;
         }
       }
@@ -116,8 +107,12 @@
           class="mt-12 opacity-0 transition-opacity duration-1000"
         >
           <p class="text-sm">Kepada Yth.</p>
-          <p class="text-lg font-semibold" id="guest-name">
-            Bapak/Ibu/Saudara/i
+          <p class="text-md">Bapak/Ibu/Saudara/i</p>
+          <p
+            class="text-lg font-semibold border border-white radius rounded-full p-4 mt-3 bg-black bg-opacity-50"
+            id="guest-name"
+          >
+            Undangan Umum
           </p>
         </div>
         <button
@@ -153,7 +148,7 @@
         id="home"
         class="h-screen bg-pattern flex flex-col items-center justify-center text-center p-8 text-[#4a4a4a]"
       >
-        <div class="slide-up" style="animation-delay: 200ms">
+        <div data-aos="fade-up">
           <h2 class="text-2xl md:text-3xl font-light">
             بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
           </h2>
@@ -166,7 +161,7 @@
           <p class="font-semibold mt-2">(QS. Ar-Rum: 21)</p>
         </div>
 
-        <div class="my-10 slide-up" style="animation-delay: 400ms">
+        <div class="my-10" data-aos="zoom-in" data-aos-delay="200">
           <h1 class="font-display text-5xl md:text-7xl text-[#d4af37]">
             M. Yazid Al-Busthomi <br />&<br />
             Sarirotul Latifah
@@ -178,8 +173,9 @@
 
         <div
           id="countdown-wrapper"
-          class="slide-up text-center"
-          style="animation-delay: 600ms"
+          class="text-center"
+          data-aos="fade-up"
+          data-aos-delay="400"
         >
           <h3
             id="countdown-title"
@@ -199,14 +195,17 @@
       <!-- ====================================================== -->
       <section id="mempelai" class="py-20 bg-white bg-pattern">
         <div class="container mx-auto px-6 text-center">
-          <h2 class="font-display text-4xl text-[#d4af37] mb-12">
+          <h2
+            class="font-display text-4xl text-[#d4af37] mb-12"
+            data-aos="fade-up"
+          >
             Sang Mempelai
           </h2>
           <div
             class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20"
           >
             <!-- Groom -->
-            <div class="text-center">
+            <div class="text-center" data-aos="fade-right">
               <img
                 src="https://placehold.co/300x300/a3b18a/ffffff?text=Yazid"
                 alt="M. Yazid Al Busthomi"
@@ -219,9 +218,14 @@
                 Putra dari Bapak [...] & Ibu [...]
               </p>
             </div>
-            <div class="font-display text-5xl text-[#d4af37]">&</div>
+            <div
+              class="font-display text-5xl text-[#d4af37]"
+              data-aos="zoom-in"
+            >
+              &
+            </div>
             <!-- Bride -->
-            <div class="text-center">
+            <div class="text-center" data-aos="fade-left">
               <img
                 src="https://placehold.co/300x300/d4af37/ffffff?text=Tifa"
                 alt="Sarirotul Latifah"
@@ -243,13 +247,17 @@
       <!-- ====================================================== -->
       <section id="acara" class="py-20 bg-pattern">
         <div class="container mx-auto px-6 text-center">
-          <h2 class="font-display text-4xl text-[#d4af37] mb-12">
+          <h2
+            class="font-display text-4xl text-[#d4af37] mb-12"
+            data-aos="fade-up"
+          >
             Rangkaian Acara
           </h2>
           <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <!-- Akad Nikah -->
             <div
               class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[#d4af37]"
+              data-aos="fade-up"
             >
               <h3 class="font-display text-3xl mb-4">Akad Nikah</h3>
               <i
@@ -265,6 +273,8 @@
             <!-- Resepsi Wanita -->
             <div
               class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[#d4af37]"
+              data-aos="fade-up"
+              data-aos-delay="200"
             >
               <h3 class="font-display text-3xl mb-4">Resepsi Wanita</h3>
               <i
@@ -286,6 +296,8 @@
             <!-- Resepsi Pria -->
             <div
               class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[#d4af37]"
+              data-aos="fade-up"
+              data-aos-delay="400"
             >
               <h3 class="font-display text-3xl mb-4">Resepsi Pria</h3>
               <i
@@ -313,16 +325,23 @@
       <!-- ====================================================== -->
       <section id="story" class="py-20 bg-white bg-pattern">
         <div class="container mx-auto px-6">
-          <h2 class="font-display text-4xl text-[#d4af37] text-center mb-12">
+          <h2
+            class="font-display text-4xl text-[#d4af37] text-center mb-12"
+            data-aos="fade-up"
+          >
             Perjalanan Kami
           </h2>
           <div class="relative max-w-2xl mx-auto">
             <!-- The vertical line -->
             <div
               class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-gray-200"
+              data-aos="zoom-in"
             ></div>
             <!-- Story Item 1 -->
-            <div class="relative mb-8 flex justify-between items-center w-full">
+            <div
+              class="relative mb-8 flex justify-between items-center w-full"
+              data-aos="fade-right"
+            >
               <div class="order-1 w-5/12"></div>
               <div
                 class="z-20 flex items-center order-1 bg-[#d4af37] shadow-xl w-8 h-8 rounded-full"
@@ -344,6 +363,7 @@
             <!-- Story Item 2 -->
             <div
               class="relative mb-8 flex justify-between flex-row-reverse items-center w-full"
+              data-aos="fade-left"
             >
               <div class="order-1 w-5/12"></div>
               <div
@@ -364,7 +384,10 @@
               </div>
             </div>
             <!-- Story Item 3 -->
-            <div class="relative mb-8 flex justify-between items-center w-full">
+            <div
+              class="relative mb-8 flex justify-between items-center w-full"
+              data-aos="fade-right"
+            >
               <div class="order-1 w-5/12"></div>
               <div
                 class="z-20 flex items-center order-1 bg-[#d4af37] shadow-xl w-8 h-8 rounded-full"
@@ -392,7 +415,7 @@
       <!-- 5. RSVP Section                                        -->
       <!-- ====================================================== -->
       <section id="rsvp" class="py-20 bg-pattern">
-        <div class="container mx-auto px-6 text-center">
+        <div class="container mx-auto px-6 text-center" data-aos="fade-up">
           <h2 class="font-display text-4xl text-[#d4af37] mb-4">
             Kirim Ucapan & Doa
           </h2>
@@ -540,6 +563,12 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // Initialize AOS
+        AOS.init({
+          duration: 800, // values from 0 to 3000, with step 50ms
+          once: false, // whether animation should happen only once - while scrolling down
+        });
+
         // Initialize Lucide Icons
         lucide.createIcons();
 
@@ -582,10 +611,10 @@
             mainContent.style.display = "block";
             document.body.style.overflow = "auto";
 
-            const animatedSections = document.querySelectorAll(".slide-up");
-            animatedSections.forEach((section) => {
-              section.style.opacity = "1";
-            });
+            // Refresh AOS to detect new elements
+            setTimeout(() => {
+              AOS.refresh();
+            }, 500);
 
             audio
               .play()
